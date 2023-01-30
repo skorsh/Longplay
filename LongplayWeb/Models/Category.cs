@@ -13,6 +13,6 @@ namespace LongplayWeb.Models
 
         public int DisplayOrder { get; set; }
 
-        public DateTime CreatedDateTime { get; set; } = DateTime.Now
+        public DateTime CreatedDateTime { get; set; } = DateTime.Now;
     }
 }
