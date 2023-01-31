@@ -19,5 +19,10 @@ namespace LongplayWeb.Controllers
             IEnumerable<Category> objCategoryList = _context.Categories;
             return View(objCategoryList);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
