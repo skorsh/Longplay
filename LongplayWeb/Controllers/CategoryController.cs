@@ -31,9 +31,13 @@ namespace LongplayWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category request)
         {
+            if (ModelState.IsValid) {
             _context.Categories.Add(request);
             _context.SaveChanges();
             return RedirectToAction("Index");
+            }
+
+            return View(request);
         }
     }
 }
