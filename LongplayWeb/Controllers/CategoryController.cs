@@ -63,7 +63,7 @@ namespace LongplayWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Categories.Add(request);
+                _context.Categories.Update(request);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
