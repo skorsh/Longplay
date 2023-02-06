@@ -70,5 +70,36 @@ namespace LongplayWeb.Controllers
 
             return View(request);
         }
+
+        //GET
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var category = _context.Categories.Find(id);
+
+            if (category is null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+
+        //POST
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePOST(int? id)
+        {
+            var obj = _context.Categories.Find(id);
+            if (obj is null)
+            {
+                return NotFound();
+            }
+            _context.Categories.Remove(obj);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
