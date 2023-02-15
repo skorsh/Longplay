@@ -34,6 +34,7 @@ namespace LongplayWeb.Controllers
             if (ModelState.IsValid) {
             _context.Categories.Add(request);
             _context.SaveChanges();
+            TempData["success"] = "Category created successfully.";
             return RedirectToAction("Index");
             }
 
@@ -65,6 +66,7 @@ namespace LongplayWeb.Controllers
             {
                 _context.Categories.Update(request);
                 _context.SaveChanges();
+                TempData["success"] = "Category updated successfully.";
                 return RedirectToAction("Index");
             }
 
@@ -99,6 +101,7 @@ namespace LongplayWeb.Controllers
             }
             _context.Categories.Remove(obj);
             _context.SaveChanges();
+            TempData["success"] = "Category deleted successfully.";
             return RedirectToAction("Index");
         }
     }
