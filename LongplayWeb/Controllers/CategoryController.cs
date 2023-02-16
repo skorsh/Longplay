@@ -48,13 +48,13 @@ namespace LongplayWeb.Controllers
             {
                 return NotFound();
             }
-            var category = _context.Categories.Find(id);
+            var categoryFromDbFirst = _context.Categories.FirstOrDefault(c => c.Name == "id");
 
-            if (category is null)
+            if (categoryFromDbFirst is null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(categoryFromDbFirst);
         }
 
         //POST
