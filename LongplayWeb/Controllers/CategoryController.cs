@@ -1,5 +1,5 @@
-﻿using LongplayWeb.Data;
-using LongplayWeb.Models;
+﻿using Longplay.DataAccess;
+using Longplay.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LongplayWeb.Controllers

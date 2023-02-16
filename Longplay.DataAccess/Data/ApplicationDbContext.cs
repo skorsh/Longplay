@@ -1,7 +1,7 @@
-﻿using LongplayWeb.Models;
+﻿using Longplay.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace LongplayWeb.Data
+namespace Longplay.DataAccess
 {
     public class ApplicationDbContext : DbContext
     {

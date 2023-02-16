@@ -1,4 +1,4 @@
-﻿using LongplayWeb.Models;
+﻿using Longplay.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

@@ -1,4 +1,4 @@
-namespace LongplayWeb.Models
+namespace Longplay.Model
 {
     public class ErrorViewModel
     {

@@ -1,4 +1,4 @@
-using LongplayWeb.Data;
+using Longplay.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
