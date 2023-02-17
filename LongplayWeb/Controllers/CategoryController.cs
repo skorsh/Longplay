@@ -1,4 +1,5 @@
 ﻿using Longplay.DataAccess;
+using Longplay.DataAccess.Repository.IRepository;
 using Longplay.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,16 +8,16 @@ namespace LongplayWeb.Controllers
     public class CategoryController : Controller
     {
 
-        private readonly ApplicationDbContext _context;
+        private readonly ICategoryRepository _repository;
 
-        public CategoryController(ApplicationDbContext context)
+        public CategoryController(ICategoryRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Category> objCategoryList = _context.Categories;
+            IEnumerable<Category> objCategoryList = _repository.GetAll();
             return View(objCategoryList);
         }
 
@@ -32,8 +33,8 @@ namespace LongplayWeb.Controllers
         public IActionResult Create(Category request)
         {
             if (ModelState.IsValid) {
-            _context.Categories.Add(request);
-            _context.SaveChanges();
+            _repository.Add(request);
+            _repository.Save();
             TempData["success"] = "Category created successfully.";
             return RedirectToAction("Index");
             }
@@ -48,7 +49,7 @@ namespace LongplayWeb.Controllers
             {
                 return NotFound();
             }
-            var categoryFromDbFirst = _context.Categories.FirstOrDefault(c => c.Name == "id");
+            var categoryFromDbFirst = _repository.GetFirstOrDefault(c => c.Id == id);
 
             if (categoryFromDbFirst is null)
             {
@@ -64,8 +65,8 @@ namespace LongplayWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Categories.Update(request);
-                _context.SaveChanges();
+                _repository.Update(request);
+                _repository.Save();
                 TempData["success"] = "Category updated successfully.";
                 return RedirectToAction("Index");
             }
@@ -80,7 +81,7 @@ namespace LongplayWeb.Controllers
             {
                 return NotFound();
             }
-            var category = _context.Categories.Find(id);
+            var category = _repository.GetFirstOrDefault(c => c.Id == id);
 
             if (category is null)
             {
@@ -94,13 +95,13 @@ namespace LongplayWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {
-            var obj = _context.Categories.Find(id);
+            var obj = _repository.GetFirstOrDefault(c => c.Id == id);
             if (obj is null)
             {
                 return NotFound();
             }
-            _context.Categories.Remove(obj);
-            _context.SaveChanges();
+            _repository.Remove(obj);
+            _repository.Save();
             TempData["success"] = "Category deleted successfully.";
             return RedirectToAction("Index");
         }
