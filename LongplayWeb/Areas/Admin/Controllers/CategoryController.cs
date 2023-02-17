@@ -3,7 +3,7 @@ using Longplay.DataAccess.Repository.IRepository;
 using Longplay.Model;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LongplayWeb.Controllers
+namespace LongplayWeb.Areas.Admin.Controllers
 {
     public class CategoryController : Controller
     {
@@ -32,11 +32,12 @@ namespace LongplayWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category request)
         {
-            if (ModelState.IsValid) {
-            _unitOfWork.Category.Add(request);
-            _unitOfWork.Save();
-            TempData["success"] = "Category created successfully.";
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.Category.Add(request);
+                _unitOfWork.Save();
+                TempData["success"] = "Category created successfully.";
+                return RedirectToAction("Index");
             }
 
             return View(request);
@@ -45,7 +46,7 @@ namespace LongplayWeb.Controllers
         //GET
         public IActionResult Edit(int? id)
         {
-            if (id==null || id==0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }

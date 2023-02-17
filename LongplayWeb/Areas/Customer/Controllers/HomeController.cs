@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace LongplayWeb.Controllers
+namespace LongplayWeb.Areas.Customer.Controllers
 {
     public class HomeController : Controller
     {
