@@ -8,16 +8,16 @@ namespace LongplayWeb.Controllers
     public class CategoryController : Controller
     {
 
-        private readonly ICategoryRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryController(ICategoryRepository repository)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Category> objCategoryList = _repository.GetAll();
+            IEnumerable<Category> objCategoryList = _unitOfWork.Category.GetAll();
             return View(objCategoryList);
         }
 
@@ -33,8 +33,8 @@ namespace LongplayWeb.Controllers
         public IActionResult Create(Category request)
         {
             if (ModelState.IsValid) {
-            _repository.Add(request);
-            _repository.Save();
+            _unitOfWork.Category.Add(request);
+            _unitOfWork.Save();
             TempData["success"] = "Category created successfully.";
             return RedirectToAction("Index");
             }
@@ -49,7 +49,7 @@ namespace LongplayWeb.Controllers
             {
                 return NotFound();
             }
-            var categoryFromDbFirst = _repository.GetFirstOrDefault(c => c.Id == id);
+            var categoryFromDbFirst = _unitOfWork.Category.GetFirstOrDefault(c => c.Id == id);
 
             if (categoryFromDbFirst is null)
             {
@@ -65,8 +65,8 @@ namespace LongplayWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _repository.Update(request);
-                _repository.Save();
+                _unitOfWork.Category.Update(request);
+                _unitOfWork.Save();
                 TempData["success"] = "Category updated successfully.";
                 return RedirectToAction("Index");
             }
@@ -81,7 +81,7 @@ namespace LongplayWeb.Controllers
             {
                 return NotFound();
             }
-            var category = _repository.GetFirstOrDefault(c => c.Id == id);
+            var category = _unitOfWork.Category.GetFirstOrDefault(c => c.Id == id);
 
             if (category is null)
             {
@@ -95,13 +95,13 @@ namespace LongplayWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {
-            var obj = _repository.GetFirstOrDefault(c => c.Id == id);
+            var obj = _unitOfWork.Category.GetFirstOrDefault(c => c.Id == id);
             if (obj is null)
             {
                 return NotFound();
             }
-            _repository.Remove(obj);
-            _repository.Save();
+            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully.";
             return RedirectToAction("Index");
         }
