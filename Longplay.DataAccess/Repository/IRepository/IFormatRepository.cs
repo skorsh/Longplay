@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Longplay.DataAccess.Repository.IRepository
 {
-    public interface ICoverTypeRepository : IRepository<CoverType>
+    public interface IFormatRepository : IRepository<Format>
     {
-        void Update(CoverType obj);
+        void Update(Format obj);
     }
 }

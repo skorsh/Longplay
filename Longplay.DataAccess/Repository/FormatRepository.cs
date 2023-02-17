@@ -3,18 +3,18 @@ using Longplay.Model;
 
 namespace Longplay.DataAccess.Repository
 {
-    public class CoverTypeRepository : Repository<CoverType>, ICoverTypeRepository
+    public class FormatRepository : Repository<Format>, IFormatRepository
     {
         private ApplicationDbContext _context;
 
-        public CoverTypeRepository(ApplicationDbContext context) : base(context)
+        public FormatRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
   
-        public void Update(CoverType obj)
+        public void Update(Format obj)
         {
-            _context.CoverTypes.Update(obj);
+            _context.Formats.Update(obj);
         }
     }
 }

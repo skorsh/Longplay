@@ -10,6 +10,7 @@ namespace Longplay.DataAccess
         }
 
         public DbSet<Category> Categories { get; set; } 
-        public DbSet<CoverType> CoverTypes { get; set; }
+        public DbSet<Format> Formats { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }

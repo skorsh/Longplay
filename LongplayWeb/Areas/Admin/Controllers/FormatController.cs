@@ -5,19 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LongplayWeb.Areas.Admin.Controllers
 {
-    public class CoverTypeController : Controller
+    public class FormatController : Controller
     {
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public CoverTypeController(IUnitOfWork unitOfWork)
+        public FormatController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<CoverType> objCoverTypeList = _unitOfWork.CoverType.GetAll();
+            IEnumerable<Format> objCoverTypeList = _unitOfWork.Format.GetAll();
             return View(objCoverTypeList);
         }
 
@@ -30,11 +30,11 @@ namespace LongplayWeb.Areas.Admin.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CoverType request)
+        public IActionResult Create(Format request)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.CoverType.Add(request);
+                _unitOfWork.Format.Add(request);
                 _unitOfWork.Save();
                 TempData["success"] = "CoverType created successfully.";
                 return RedirectToAction("Index");
@@ -50,7 +50,7 @@ namespace LongplayWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var coverTypeFromDbFirst = _unitOfWork.CoverType.GetFirstOrDefault(c => c.Id == id);
+            var coverTypeFromDbFirst = _unitOfWork.Format.GetFirstOrDefault(c => c.Id == id);
 
             if (coverTypeFromDbFirst is null)
             {
@@ -62,11 +62,11 @@ namespace LongplayWeb.Areas.Admin.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(CoverType request)
+        public IActionResult Edit(Format request)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.CoverType.Update(request);
+                _unitOfWork.Format.Update(request);
                 _unitOfWork.Save();
                 TempData["success"] = "CoverType updated successfully.";
                 return RedirectToAction("Index");
@@ -82,7 +82,7 @@ namespace LongplayWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var coverType = _unitOfWork.CoverType.GetFirstOrDefault(c => c.Id == id);
+            var coverType = _unitOfWork.Format.GetFirstOrDefault(c => c.Id == id);
 
             if (coverType is null)
             {
@@ -96,12 +96,12 @@ namespace LongplayWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {
-            var obj = _unitOfWork.CoverType.GetFirstOrDefault(c => c.Id == id);
+            var obj = _unitOfWork.Format.GetFirstOrDefault(c => c.Id == id);
             if (obj is null)
             {
                 return NotFound();
             }
-            _unitOfWork.CoverType.Remove(obj);
+            _unitOfWork.Format.Remove(obj);
             _unitOfWork.Save();
             TempData["success"] = "CoverType deleted successfully.";
             return RedirectToAction("Index");

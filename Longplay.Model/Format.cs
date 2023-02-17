@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Longplay.Model
 {
-    public class CoverType
+    public class Format
     {
         [Key]
         public int Id { get; set; }

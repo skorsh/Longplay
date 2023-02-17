@@ -13,7 +13,7 @@ namespace LongplayWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230217151936_AddCoverTypeToDb")]
-    partial class AddCoverTypeToDb
+    partial class AddFormatToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
