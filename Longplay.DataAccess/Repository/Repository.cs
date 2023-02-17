@@ -10,29 +10,41 @@ namespace Longplay.DataAccess.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
+        private readonly ApplicationDbContext _context;
+        internal DbSet<T> dbSet;
+
+        public Repository(ApplicationDbContext context)
+        {
+            _context = context;
+            this.dbSet = context.Set<T>();
+        }
+
         public void Add(T entity)
         {
-            throw new NotImplementedException();
+            dbSet.Add(entity);
         }
 
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            IQueryable<T> values= dbSet;
+            return values.ToList();
         }
 
         public T GetFirstOrDefault(Expression<Func<T, bool>> filter)
         {
-            throw new NotImplementedException();
+            IQueryable<T> values = dbSet;
+            values = values.Where(filter);
+            return values.FirstOrDefault();
         }
 
         public void Remove(T entity)
         {
-            throw new NotImplementedException();
+            dbSet.Remove(entity);
         }
 
         public void RemoveRange(IEnumerable<T> entities)
         {
-            throw new NotImplementedException();
+            dbSet.RemoveRange(entities);
         }
     }
 }
